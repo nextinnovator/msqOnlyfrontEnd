@@ -1,5 +1,5 @@
 var answerAndQuestion = { question: "", answer: "" }
-//For  adding the value to the array
+//For  adding the value to the array to redirect to database!
 var answersMade = []
 var allAnswers = []
 var counter = 0
