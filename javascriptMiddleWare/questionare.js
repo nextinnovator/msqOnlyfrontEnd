@@ -201,6 +201,7 @@ $(document).ready(() => {
                 data: JSON.stringify({ name: clientName, answers: answersMade }),
                 success: (data) => {
                     alert("Thank you for taking the exam, just wait for the result, we will call you about the result of your exam!");
+                    window.open("https://msqintern1.wixsite.com/intern1 ", "_blank")
                     $("p").hide()
                     $("#nextButton").hide()
                     $("#submitButton").hide()
