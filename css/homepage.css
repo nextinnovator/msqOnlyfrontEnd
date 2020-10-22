@@ -1,0 +1,58 @@
+body{
+    background:white; 
+ }
+
+ #image{
+     margin-top:2%;
+ }
+
+ #msqText{
+     color:rgb(52, 52, 236);
+     font-size:50px;
+     font-weight: 100;
+     font-family: 'Franklin Gothic Medium';
+     text-shadow: 2px 2px gray;
+ }
+
+ #homepage{
+     text-align: center;
+ }
+
+
+ .next:hover {
+ background-color:green
+ }
+ 
+.next {
+ background-color:grey;
+ border: 1px;
+ border-radius:15px;
+ margin-top:10%;
+ text-decoration: none;
+ display:inline-block;
+ padding: 19px 27px;
+ font-size: x-large;
+ font-family:Bahnschrift SemiBold;
+ }
+
+@media screen and (max-device-width:1024px) {
+    #msqText{
+        font-size:10px;
+        text-shadow: 1px 1px gray;
+    }
+
+    #homepage{
+     text-align:;
+    }
+   
+    img{
+        width:100px;
+        height: 100px;
+    }
+
+    .next{
+        padding:8px 13px;
+        font-size:1em;
+    }
+   
+}

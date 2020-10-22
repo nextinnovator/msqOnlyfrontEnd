@@ -1,0 +1,52 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<html>
+<title>MS. Q Questionaire</title>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+</head>
+<link rel="stylesheet" href="./css/questionaire.css">
+
+<body>
+  <!-- <button id="requestor">Ajax</button> -->
+  <div class="questions">
+    <p id="countdown">Time Remaining 15:00</p>
+    <center>
+      <div class="Email">
+        <div class="imgcontainer">
+          <img
+            src="https://static.wixstatic.com/media/bc9755_bc5f10f99c8449fda8666675a6b4b5b0~mv2.png/v1/fill/w_131,h_101,al_c,q_85,usm_0.66_1.00_0.01/MsQ%20logo.webp"
+            alt="Avatar" class="avatar">
+          <h1 id="msqExam">MsQAssociate Careers Exam</h1>
+        </div><br><br>
+
+        <div class="container">
+          <input autocomplete="off" type="email" placeholder="Enter Your Email" name="email" required
+            id="clientName"><br><br>
+          <button id="button">LogIn</button>
+        </div>
+      </div>
+    </center>
+    <center>
+      <div class="answering">
+        <button id="prevButton"><i class="fas fa-angle-double-left"></i>PREV</button>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+        <button id="nextButton">NEXT<i class="fas fa-angle-double-right"></i></button>
+        <form>
+          <p id="numberToAnswer">1 out of 50</p>
+          <div id="image"></div>
+          <p id="questions"></p>
+          <div id="choices"></div>
+        </form>
+        <button id="submitButton">Submit</button>  
+        <button id="submitAnswers">Submit Answers</button>
+      </div>
+    </center>
+  </div>
+
+</body>
+
+</html>
+<script src="./javascriptMiddleWare/questions.js"></script>
+<script src="./javascriptMiddleWare/questionare.js"></script>
+<script src="./javascriptMiddleWare/showAnswers.js"></script>
