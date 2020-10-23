@@ -6,16 +6,13 @@ function answers(question, answer) {
     answerAndQuestion = { question: "", answer: "" }
     answerAndQuestion.question = question
     answerAndQuestion.answer = answer
-    console.log(answerAndQuestion)
     answersMade.push(answerAndQuestion)
-    console.log(answersMade)
 }
 
 $(document).ready(() => {
     var mydata = JSON.parse(JSON.stringify(array))
     var choice = ""
     var clientName = ""
-    var prevCounter = 0
 
     //Email Validator
     function ValidateEmail(inputText) {
@@ -57,6 +54,7 @@ $(document).ready(() => {
     $("#submitButton").hide()
     $("#submitAnswers").hide()
     $(".answering").hide()
+    $(".directions").hide()
     $.fn.showAnswer = function (index, value) {
         $("#submitButton").show()
         choice = mydata[index].answers[value]
@@ -64,40 +62,42 @@ $(document).ready(() => {
     var numberOfQuestion = 0
     var counter = 0
 
+    $("#login").click(() => {
+        if (document.getElementById("clientName").value != "") {
+            if (ValidateEmail(document.getElementById("clientName").value)) {
+                $(".directions").show()
+                $(".Email").hide()
+            } else {
+                alert("You've enter an invalid Email!")
+            }
+        } else {
+            alert("Email is required!")
+        }
+    })
     //This is for showing the questionare
     $("#button").click(() => {
-        $("#prevButton").hide()
+        $(".directions").hide()
         var img = document.createElement("img")
         img.setAttribute("id", "imageSrc")
         document.getElementById("image").appendChild(img)
         var mydata = JSON.parse(JSON.stringify(array))
         $("img").hide()
-        if (document.getElementById("clientName").value != "") {
-            if (ValidateEmail(document.getElementById("clientName").value)) {
-                $("#countdown").show()
-                $("#submitAnswers").hide()
-                $("#submitButton").hide()
-                $(".answering").show()
-                $("#clientName").hide()
-                $(".Email").hide()
-                $("h1").hide()
-                clientName = document.getElementById("clientName").value
-                timer()
-                $("#button").hide()
-                $("#nextButton").show()
-                document.getElementById('questions').innerHTML = mydata[numberOfQuestion].question;
-                $("#choices").append("<hr>" + "<ul></ul>");
-                for (var i in mydata[numberOfQuestion].answers) {
-                    counter += 1
-                    var li = "<br><br><input id='choice" + counter + "' type='radio' name='choices' onclick=$.fn.showAnswer(" + numberOfQuestion + "," + i + ")>";
-                    $("ul").append(li.concat(mydata[numberOfQuestion].answers[i]))
-                }
-            } else {
-                document.getElementById("clientName").value = "";
-                alert("You've enter an invalid Email!")
-            }
-        } else {
-            alert("Email is required!")
+        $("#countdown").show()
+        $("#submitAnswers").hide()
+        $("#submitButton").hide()
+        $(".answering").show()
+        $("#clientName").hide()
+        $("h1").hide()
+        clientName = document.getElementById("clientName").value
+        timer()
+        $("#button").hide()
+        $("#nextButton").show()
+        document.getElementById('questions').innerHTML = mydata[numberOfQuestion].question;
+        $("#choices").append("<hr>" + "<ul></ul>");
+        for (var i in mydata[numberOfQuestion].answers) {
+            counter += 1
+            var li = "<br><br><input id='choice" + counter + "' type='radio' name='choices' onclick=$.fn.showAnswer(" + numberOfQuestion + "," + i + ")>";
+            $("ul").append(li.concat(mydata[numberOfQuestion].answers[i]))
         }
     })
 
@@ -105,10 +105,9 @@ $(document).ready(() => {
 
     //This is for showing the next question
     $("#nextButton").click(() => {
-        $("#prevButton").show()
-        prevCounter += 1
         numberOfQuestion += 1
         var mydata = JSON.parse(JSON.stringify(array))
+        array.push(mydata[numberOfQuestion])
         $("ul").hide()
         if (Array.isArray(mydata[numberOfQuestion].question)) {
             $("img").show()
@@ -133,28 +132,11 @@ $(document).ready(() => {
             }
         }
     })
-    //Previous Questions
-    $("#prevButton").click(() => {
-        prevCounter -= 1
-        if (prevCounter == 0) {
-            $("#prevButton").hide()
-        }
-        console.log(numberOfQuestion + " " + prevCounter)
-        $("ul").hide()
-        document.getElementById('questions').innerHTML = mydata[numberOfQuestion - (prevCounter + 1)].question
-        $("#choices").append("<ul></ul>");
-        for (var i in mydata[numberOfQuestion - prevCounter].answers) {
-            counter += 1
-            var li = "<br><br><input id='choice" + counter + "' type='radio' name='choices' onclick=$.fn.showAnswer(" + numberOfQuestion + "," + i + ")>";
-            $("ul").append(li.concat(mydata[numberOfQuestion - (prevCounter + 1)].answers[i]))
-        }
-    })
 
 
 
     //Getting all the answers from user
     $("#submitButton").click(() => {
-        $("#prevButton").show()
         var mydata = JSON.parse(JSON.stringify(array))
         answers(mydata[numberOfQuestion], choice)
         numberOfQuestion += 1
@@ -183,8 +165,8 @@ $(document).ready(() => {
         }
         $("#submitButton").hide()
         choice = ""
-        var numbersOfAnswers = answersMade.length + 1
-        $("#numberToAnswer").text(numbersOfAnswers + " out of 50")
+        var numbersOfAnswers = answersMade.length
+        $("#numberToAnswer").text("You've answered " + numbersOfAnswers + " out of 50")
         if (answersMade.length == 50) {
             sendScore = true
             sendingDataToDatabase()
@@ -200,7 +182,7 @@ $(document).ready(() => {
                 data: JSON.stringify({ name: clientName, answers: answersMade }),
                 success: (data) => {
                     alert("Thank you for taking the exam, just wait for the result, we will call you about the result of your exam!");
-                    window.open("https://msqintern1.wixsite.com/intern1 ", "_blank")
+                    location.reload("https://msqintern1.wixsite.com/intern1")
                     $("p").hide()
                     $("#nextButton").hide()
                     $("#submitButton").hide()
@@ -212,8 +194,8 @@ $(document).ready(() => {
                 contentType: "application/json",
                 dataType: 'json'
             })
+            sendScore = false
             $("#countdown").hide()
-            $("#prevButton").hide()
             $("#numberToAnswer").hide()
             $("form").hide()
             $("#submitAnswers").hide()
@@ -230,14 +212,12 @@ $(document).ready(() => {
             data: JSON.stringify({ name: clientName, answers: answersMade }), // or JSON.stringify ({name: 'jonas'}),
             success: (data) => {
                 alert("Thank you for taking the exam, just wait for the result, we will call you about the result of your exam!");
-                window.open("https://msqintern1.wixsite.com/intern1 ", "_blank")
                 $("p").hide()
                 $("#nextButton").hide()
                 $("#submitButton").hide()
                 $("#button").show()
                 $("#clientName").show()
                 $("#submitAnswers").hide()
-                $("#prevButton").hide()
                 $("h1").show()
             },
             contentType: "application/json",
